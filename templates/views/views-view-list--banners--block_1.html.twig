@@ -1,0 +1,184 @@
+{#
+/**
+* @file
+* Theme override for a view template to display a list of rows.
+*
+* Available variables:
+* - attributes: HTML attributes for the container.
+* - rows: A list of rows for this list.
+*   - attributes: The row's HTML attributes.
+*   - content: The row's contents.
+* - title: The title of this group of rows. May be empty.
+* - list: @todo.
+*   - type: Starting tag will be either a ul or ol.
+*   - attributes: HTML attributes for the list element.
+*
+* @see template_preprocess_views_view_list()
+*/
+#}
+{% if attributes -%}
+<div{{ attributes }}>
+{% endif %}
+{% if title %}
+<h3>{{ title }}</h3>
+{% endif %}
+{% set banner_body_txt = banner_txt.value %}
+{%  if banner_body_txt|length == 0 %}
+  {% set banner_body_txt = ' ' %}
+{%  endif %}
+{% set bnr_body = {
+                  '#type':   'processed_text',
+                  '#text':    banner_body_txt,
+                  '#format':  banner_txt.format,
+} %}
+
+{{ bnr_body }}
+
+<div{{ list.attributes }} class="banner-slider">
+{% for row in rows %}
+
+<!--For Text Start-->
+{% if row.content['#row']._entity.field_banner_type[0].value == 'Text' %}
+{#{% set backgroundimage = {
+'#theme':      'image',
+'#uri':        row.content['#row']._entity.field_banner_background.entity.uri.value,
+} %}  #}
+<div{{ row.attributes }} class="banner-slider-wrapper" style="background-image:url({{file_url(row.content['#row']._entity.field_banner_background.entity.uri.value)}})">
+<div class="banner-inner-wrapper">
+   <div class="banner-text">
+      <h2>{{row.content['#row']._entity.title[0].value}}</h2>
+      <p> {{row.content['#row']._entity.field_banner_text[0].value}}</p>
+      {% if row.content['#row']._entity.field_cta[0].value %}
+      <div class="slider-btn-group">
+        {{row.content['#row']._entity.field_cta[0].value|raw}}
+
+      </div>
+      {% endif %}
+   </div>
+   <div class="banner-media">
+      {% set singleimage = {
+      '#theme':      'image',
+      '#uri':        row.content['#row']._entity.field_upload_single_image.entity.uri.value,
+      } %}
+      {{ singleimage }}
+   </div>
+</div>
+</div>
+{% endif %}
+<!--For Text End-->
+<!--For Video Start-->
+{% if row.content['#row']._entity.field_banner_type[0].value == 'Video' %}
+<div{{ row.attributes }} class="banner-slider-wrapper" style="background-image:url({{file_url(row.content['#row']._entity.field_banner_background.entity.uri.value)}})">
+<div class="banner-inner-wrapper">
+   <div class="banner-text">
+      <h2>{{row.content['#row']._entity.title[0].value}}</h2>
+      <p> {{row.content['#row']._entity.field_banner_text[0].value}}</p>
+     {% if row.content['#row']._entity.field_cta[0].value %}
+      <div class="slider-btn-group">
+        {{row.content['#row']._entity.field_cta[0].value|raw}}
+      </div>
+      {% endif %}
+   </div>
+   <div class="banner-media">
+      {{row.content['#row']._entity.field_video_url[0].value|raw}}
+   </div>
+</div>
+</div>
+{% endif %}
+<!--For Video End-->
+
+<!--For Multiple Image Start-->
+{% if row.content['#row']._entity.field_banner_type[0].value == 'Image' %}
+<div{{ row.attributes }} class="banner-slider-wrapper" style="background-image:url({{file_url(row.content['#row']._entity.field_banner_background.entity.uri.value)}})">
+<div class="banner-inner-wrapper">
+   <div class="multiple-images-wrapper multi-Images">
+      <div class="banner-text">
+        <h2>{{row.content['#row']._entity.title[0].value}}</h2>
+      </div>
+      <div class="multiple-images">
+        {% for image in row.content['#row']._entity.field_banner_upload_image  %}
+        {% set multiimage = {
+        '#theme':      'image',
+        '#uri':        image.entity.uri.value,
+        } %}
+        <div class="single-img">{{ multiimage }}</div>
+        {% endfor %}
+      </div>
+      {% if row.content['#row']._entity.field_cta[0].value %}
+        <div class="slider-btn-group">
+          {{row.content['#row']._entity.field_cta[0].value|raw}}
+        </div>
+        {% endif %}
+   </div>
+</div>
+</div>
+{% endif %}
+<!--For Multiple Image End-->
+
+<!-- For Single Image Start -->
+{% if row.content['#row']._entity.field_banner_type[0].value == 'single_image' %}
+{# <div {{ row.attributes }} class="banner-slider-wrapper" style="background-image:url({{file_url(row.content['#row']._entity.field_image.entity.uri.value)}})"> #}
+<div {{ row.attributes }} class="banner-slider-wrapper">
+<div class="banner-inner-wrapper single-home-banner">
+  <div class="single-images-wrapper">
+    <div class="banner-text">
+      <h2>{{row.content['#row']._entity.title[0].value}}</h2>
+    </div>
+    <div class="single-image">
+        {# {% set single_image = {
+        '#theme':      'image',
+        '#uri':        row.content['#row']._entity.field_single_image.entity.uri.value,
+        } %}
+        <a href="{{row.content['#row']._entity.field_contact_name[0].value}}"> {{ single_image }} </a> #}
+
+        <a href="{{row.content['#row']._entity.field_contact_name[0].value}}" target="_blank"> <img src="{{file_url(row.content['#row']._entity.field_image.entity.uri.value)}}" alt="single image" ></a>
+        {# {{file_url(row.content['#row']._entity.field_single_image.entity.uri.value)}} #}
+    </div>
+
+    {# {% if  row.content['#row']._entity.field_contact_name[0].value %}
+      <div class="slider-btn-group">
+          <a href="{{row.content['#row']._entity.field_contact_name[0].value}}" class="btn-white">View Details</a>
+          <!-- Add MORE CTA here -->
+        </div>
+      {% endif %}
+    #}
+  </div>
+</div>
+</div>
+{% endif %}
+<!-- For Single Image End -->
+
+<!--For Custom Banner Start-->
+{% if row.content['#row']._entity.field_banner_type[0].value == 'custom_banner' %}
+<div{{ row.attributes }} class="banner-slider-wrapper">
+<div class="banner-inner-wrapper">
+   <div class="multiple-images-wrapper">
+      <div class="banner-text">
+        <h2>{{row.content['#row']._entity.title[0].value}}</h2>
+      </div>
+      <div class="multiple-images">
+        {% for image in row.content['#row']._entity.field_banner_custom_image %}
+          <div class="single-img">{{ image.value|raw }}</div>
+        {% endfor %}
+    </div>
+   </div>
+</div>
+</div>
+{% endif %}
+<!--For Custom Banner End-->
+
+
+
+{% endfor %}
+</div>
+{% if attributes -%}
+</div>
+{% endif %}
+{# <div class="serach-banner-form">
+<div class="inner-form-wrapper">
+<a href="javascript:void(0)" class="linkgeo" id="idgeo">Near Me</a>
+<div id="showgeoms"> </div>
+{{search_block}}
+</div>
+</div> #}
+

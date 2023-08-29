@@ -1,0 +1,75 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ */
+#}
+
+
+<div class="info">
+                    <div class="bulding">
+ <img src="{{fields.field_school_photo.content }}" class="img-fluid" alt="bulding">
+                    </div>
+                    <div class="school-detail">
+                        <div class="school-logo2"> <img src="{{fields.field_school_photo.content }}" class="img-fluid" alt="bulding">
+                        </div>
+                        <h3>St Sophias International School</h3>
+                        <div class="school-locat">
+                            <ul>
+                                <li>
+                                    <span>State</span>
+                                    <label>{{ field_state }}</label>
+                                </li>
+                                <li>
+                                    <span>Board</span>
+                                    <label>{{ field_board_affiliation }}</label>
+                                </li>
+                                <li>
+                                    <span>Co-Ed</span>
+                                    <label>{{ field_co_education_status }} </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="facility-list">
+
+                        <div class="box-li">
+                                <img src=" z" class="img-fluid" alt="icon">
+                                <h5 style="">Computer Lab</h5>
+                            </div>
+							<div class="box-li">
+                                <img src="https://leadschool.in/schools/wp-content/themes/LeadSchoolTheme/newdesign/images/playground.png" class="img-fluid" alt="icon">
+                                <h5 style="">Playground</h5>
+                            </div>
+																												                            <div class="box-li" style="display: none;">
+                                <img src="https://leadschool.in/schools/wp-content/themes/LeadSchoolTheme/newdesign/images/transport_facility.png" class="img-fluid" alt="icon">
+                                <h5 style="">Transport Facility</h5>
+                            </div>
+
+                        </div>
+                        <div class="action-btn">
+                            <a href="#" class="view">View Detail</a>
+                            <a href="javascript:void(0)" class="enq" id="enqBtn" data-id="257">Apply</a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+

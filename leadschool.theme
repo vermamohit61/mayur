@@ -1,0 +1,349 @@
+<?php
+use Drupal\Core\Url;
+use Drupal\block\Entity\Block;
+use Drupal\user\Entity\User;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\common_leadschool\Pagination;
+
+
+
+/**
+ * Implements Yourtheme_theme_suggestions_alter().
+ */
+function leadschool_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
+  if ($hook == 'form' & !empty($variables['element']['#id'])) {
+    $suggestions[] = 'form__' . str_replace('-', '_', $variables['element']['#id']);
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_hook().
+ *
+ * @inheritdoc
+ */
+ function leadschool_preprocess_menu(&$variables) {
+
+  if (isset($variables['menu_name']) && $variables['menu_name'] === 'parents-menu') {
+    foreach($variables['items'] as $key => $item) {
+      if ($item['url']->toString() == '/user/loginform' || $item['url']->toString() == '/user/registerform') {
+        if (\Drupal::currentUser()->isAuthenticated()) {
+          unset($variables['items'][$key]);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ *
+ * @inheritdoc
+ */
+function leadschool_preprocess_page(&$variables) {
+
+  $front_page = \Drupal::service('path.matcher')->isFrontPage();
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $variables['front_page'] =  $front_page;
+
+  //setting configuraton for school filter
+  $config = \Drupal::config('school_management.settings');
+  $state = $config->get('state');
+  $city = $config->get('city');
+  $board_affiliation = $config->get('board_affiliation');
+  $pincode = $config->get('pincode');
+  $classes = $config->get('classes');
+  $infrastructure = $config->get('infrastructure');
+
+  //Add a JS library
+  $variables['#attached']['library'][] = 'school_management/StateCitiesList';
+  // pass variable to Drupal.Settings
+  $variables['#attached']['drupalSettings']['school_management']['state'] = $state;
+  $variables['#attached']['drupalSettings']['school_management']['city'] = $city;
+  $variables['#attached']['drupalSettings']['school_management']['board_affiliation'] = $board_affiliation;
+  $variables['#attached']['drupalSettings']['school_management']['pincode'] = $pincode;
+  $variables['#attached']['drupalSettings']['school_management']['classes'] = $classes;
+  $variables['#attached']['drupalSettings']['school_management']['infrastructure'] = $infrastructure;
+
+  $arg_val = \Drupal::service('path.current')->getPath();
+  $variables['current_path'] = $arg_val;
+  $node = \Drupal::routeMatch()->getParameter('node');
+    if($node && $node->bundle() == 'marketing_management') {
+      $variables['logged_in'] = (\Drupal::currentUser()->isAuthenticated())?1:0;
+      $variables['notlogged_url'] = Url::fromRoute('parent_login_registration.loginform');
+      $user_id = \Drupal::currentUser()->id();
+      $user = User::load($user_id);
+      $ccount = $user->field_pchild_name->getValue();
+      $variables['countc'] = count($ccount);
+      $variables['marketing'] = 'marketing_management';
+    }
+  //moengage api key and script url
+  $current_theme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  $moeuser_id = \Drupal::currentUser()->id();
+  $roles = \Drupal::currentUser()->getRoles();
+  if(!empty($moeuser_id) && (in_array('parent', $roles)) ) {
+    $moeuser = User::load($moeuser_id);
+    $puser_email = $moeuser->getEmail();
+    $parent_name = $moeuser->field_parent_name->value;
+    $parent_mobile = $moeuser->field_mobile_no->value;
+    $prachild = $moeuser->field_pchild_name->getValue();
+    $educationdetails = Paragraph::load($prachild[0]['target_id']);
+    $pgrade = $educationdetails->field_pgrade->getValue()[0]['value'];
+    $variables['#attached']['library'][] = 'moengage_track/googletagmanagerjs';
+    $variables['#attached']['drupalSettings']['moengage_track']['parent_mobile'] = $parent_mobile;
+    $variables['#attached']['drupalSettings']['moengage_track']['puser_email'] = $puser_email;
+    $variables['#attached']['drupalSettings']['moengage_track']['parent_name'] = $parent_name;
+    $variables['#attached']['drupalSettings']['moengage_track']['pgrade'] = $pgrade;
+  }
+  $moengage_api_key = APP_ID_KEY;
+  $moengage_script_url = CDN_MOENGAGE_COM;
+  $moengage_debug = MOENGAGE_DEBUG;
+  $variables['#attached']['library'][] = 'moengage_track/googletagmanagerjs';
+  $variables['#attached']['library'][] = 'moengage_track/moengaeTrackjs';
+  $variables['#attached']['drupalSettings']['moengage_track']['moengage_api_key'] = $moengage_api_key;
+  $variables['#attached']['drupalSettings']['moengage_track']['moengage_script_url'] = $moengage_script_url;
+  $variables['#attached']['drupalSettings']['moengage_track']['moengage_debug'] = $moengage_debug;
+  //setting error page variables
+  if ('system.404' === $route_name) {
+    $variables['page_not_found_block'] = load_block_in_theme('404errorblock');
+  }
+  if ('system.403' === $route_name) {
+    $variables['access_denied_block'] = load_block_in_theme('403errorblock');
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function leadschool_theme_suggestions_html_alter(array &$suggestions, array $variables) {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $content_type = $node->bundle();
+    $suggestions[] = 'html__'.$content_type;
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ */
+ function leadschool_preprocess_views_view_fields(&$variables){
+  global $base_url;
+  $variables['logged_in'] = (\Drupal::currentUser()->isAuthenticated())?1:0;
+  $variables['notlogged_url'] = Url::fromRoute('parent_login_registration.loginform');
+
+  if($variables['view']->id() == 'school_listing' && $variables['view']->current_display == 'page_1'){
+    $new_url = school_listing_query_params();
+    $variables['current_path'] = $new_url;
+  }
+
+  $user_id = \Drupal::currentUser()->id();
+  $user = User::load($user_id);
+  $ccount = $user->field_pchild_name->getValue();
+  $variables['countc'] = count($ccount);
+  $userid = \Drupal::currentUser()->id();
+  if(!empty($userid)) {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if($node && $node->bundle() == 'school') {
+      $node_id = $node->id();
+      $nodids = getmasking();
+      $schoolid = getneculasid($node_id);
+      if (in_array($schoolid, $nodids)){
+        $variables['schoolmask'] = 1;
+      } else {
+        $variables['schoolmask'] = 0;
+      }
+    }
+  }
+  // Get cookie value in view template for the school search page
+    $variables['load_count'] = isset($_COOKIE['load_count']) ? $_COOKIE['load_count'] : 0;
+    $page_no = \Drupal::request()->query->get('page');
+    $variables['page_count'] = (!isset($page_no) || $page_no == 1) ? 'yes' : 'no';
+    $variables['distance'] = \Drupal::request()->query->get('distance');
+}
+
+/**
+ * Implements hook_preprocess_views_view_list__banners__block_1().
+ */
+function leadschool_preprocess_views_view_list__banners__block_1(&$variables){
+  $config = \Drupal::config('common_leadschool.settings');
+  $variables['banner_txt'] = $config->get('bnr_text');
+}
+/**
+ * Implements hook_preprocess_views_view_list__banners__block_1().
+ */
+function leadschool_preprocess_views_view_fields__leadschool_home_page__block_5(&$variables){
+  $variables['statelist'] = get_state_codes();
+  $variables['search_block_search'] = load_block_in_theme('schoolsearchblock');
+  $variables['select_state_ip'] = load_block_in_theme('statelistblock');
+}
+/**
+ * Implements hook_preprocess_views_view_fields__view_block().
+ */
+function leadschool_preprocess_views_view_fields__school_detail_page__block_1(&$variables){
+  $variables['current_path_alias'] = \Drupal::request()->getRequestUri();
+  $variables['uid'] = \Drupal::currentUser()->id();
+  $variables['parent_enquiry_block'] = load_block_in_theme('parentenquiryblock');
+  $nid = (int) $variables['row']->nid;
+  $map_block_desktop = views_embed_view('map_with_markers', 'block_1', $nid);
+  $variables['school_map_block'] = \Drupal::service('renderer')->render($map_block_desktop);
+  $map_block_mobile = views_embed_view('map_with_markers', 'block_2', $nid);
+  $variables['school_map_block_mobile'] = \Drupal::service('renderer')->render($map_block_mobile);
+  $variables['banner_data'] = get_alt_and_title($nid,'node__field_banner_image','field_banner_image_title');
+  $variables['logo_data'] = get_alt_and_title($nid, 'node__field_school_logo', 'field_school_logo_title');
+}
+/**
+ * Implements hook_preprocess_views_view_fields__view_block().
+ */
+function leadschool_preprocess_views_view_fields__school_detail_page__block_10(&$variables) {
+  $variables['current_path_alias'] = \Drupal::request()->getRequestUri();
+  $variables['uid'] = \Drupal::currentUser()->id();
+  $nid = (int) $variables['row']->nid;
+  $variables['node_id'] = $nid;
+  $relatedArticles = views_embed_view('school_detail_page', 'block_13', $nid);
+  $variables['school_map_block'] = \Drupal::service('renderer')->render($relatedArticles);
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function leadschool_preprocess_html(&$variables) {
+  $variables['google_an'] = GANALYTICS_UA;
+  $variables['#attached']['library'][] = 'get_in_touch/googleanalyticstrackjs';
+  $variables['#attached']['library'][] = 'parent_login_registration/parentloginjs';
+  $variables['#attached']['library'][] = 'parent_login_registration/parentenquiryjs.js';
+  $variables['#attached']['library'][] = 'moengage_track/googletagmanagerjs.js';
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  if($route_name == 'entity.user.edit_form'){
+    $variables['head_title']['title'] = 'Profile | LEAD School';
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function leadschool_theme_suggestions_page_alter(array &$suggestions, array $variables){
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+      $suggestions[] = 'page__' . $node->bundle();
+  }
+  switch ($route_name) {
+    case 'system.401':
+      // Unauthorized Access.
+      $error = 401;
+      break;
+    case 'system.403':
+      // Access Denied.
+      $error = 403;
+      break;
+    case 'system.404':
+      // Page Not Found.
+      $error = 404;
+      break;
+  }
+  if (isset($error)) {
+    $suggestions[] = 'page__' . $error;
+  }
+}
+
+/**
+ * Implements hook_preprocess_form().
+ */
+function leadschool_preprocess_form(&$variables){
+  if ($variables['attributes']['id'] == 'views-exposed-form-school-listing-page-1') {
+    $variables['logged_in'] = (\Drupal::currentUser()->isAuthenticated())?1:0;
+    $variables['notlogged_url'] = Url::fromRoute('parent_login_registration.loginform');
+    $user_id = \Drupal::currentUser()->id();
+    $user = User::load($user_id);
+    $ccount = $user->field_pchild_name->getValue();
+    $variables['countc'] = count($ccount);
+    $new_url = school_listing_query_params();
+    $variables['current_path'] = $new_url;
+    //adding recent search keywords block
+    $variables['recent_search_keywords_block'] = load_block_in_theme('recentsearchkeywordsblock');
+  }
+}
+/**
+ * Implements hook_preprocess_page_title().
+ */
+function leadschool_preprocess_page_title(&$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  switch ($route_name) {
+    case "user.login":
+      $variables['title'] = t('Log In');
+      break;
+  }
+}
+
+function leadschool_theme_suggestions_views_view_alter(array &$suggestions, array $variables){
+  $view = $variables['view'];
+  if ($view->id() == 'school_listing' && $view->current_display == 'page_1') {
+    $suggestions[] = 'views_view__school_listing_page_1';
+  }
+  if ($view->id() == 'map_with_markers' && $view->current_display == 'page_1') {
+    $suggestions[] = 'views_view__map_with_markers_page_1';
+  }
+}
+
+function leadschool_theme_suggestions_views_view_list_alter(array &$suggestions, array $variables){
+  $view = $variables['view'];
+  if ($view->id() == 'school_listing' && $view->current_display == 'page_1') {
+    $suggestions[] = 'views_view_list__school_listing_page_1';
+  }
+}
+
+
+
+function leadschool_preprocess_views_view(&$variables){
+  global $base_url;
+  $views = $variables['view'];
+  if (($views->id() == 'school_listing' && $views->current_display == 'page_1')) {
+    if ((!empty(\Drupal::request()->query->get('latitude')) && (!empty(\Drupal::request()->query->get('longitude')))) || (isset($_COOKIE['latName']) && isset($_COOKIE['longName']))) {
+
+      $limit = 12;
+      $lat = \Drupal::request()->query->get('latitude');
+      $long = \Drupal::request()->query->get('longitude');
+      $distance = \Drupal::request()->query->get('distance');
+      $search_text = \Drupal::request()->query->get('search');
+      $grv = '';
+      if (null !== \Drupal::request()->query->get('grade_available')) {
+        $gradearr = \Drupal::request()->query->get('grade_available');
+        $grv = '';
+        if(is_array($gradearr)){
+          foreach ($gradearr as $gk => $gv) {
+            $grv .= '&grade_available[]=' . $gv;
+          }
+        }
+        else{
+          $new_url = explode(',',$gradearr);
+          foreach ($new_url as $gk => $gv) {
+            $grv .= '&grade_available[]=' . $gv;
+          }
+        }
+      }
+
+      $baseURL = $base_url .'/find-a-school/schools?&search=' . $search_text . $grv . '&distance=' . $distance . '&latitude=' . $lat . '&longitude=' . $long;
+      $search = \Drupal::request()->query->get('search');
+      $variables['search_count'] = $views->total_rows;
+      $variables['search_place'] = $search;
+      $pagConfig = array(
+        'baseURL' => $baseURL,
+        'totalRows' => $views->total_rows,
+        'perPage' => $limit,
+        'firstLink' => 'First',
+        'nextLink' => '&raquo;',
+        'prevLink' => '&laquo;',
+        'lastLink' => 'Last &raquo;',
+        'showCount' => false,
+        'numLinks' => 1,
+      );
+
+      $pagination = new Pagination($pagConfig);
+      $paging = $pagination->createLinks();
+      $variables['pagination'] = $paging;
+      \Drupal::service('page_cache_kill_switch')->trigger();
+      }
+      $variables['school_map'] = load_block_in_theme('schoolmap');
+    }
+}
+
+

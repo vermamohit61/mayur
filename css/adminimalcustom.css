@@ -1,0 +1,642 @@
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiGyp8kv8JHgFVrLPTucXtAKPY.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiGyp8kv8JHgFVrLPTufntAKPY.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiGyp8kv8JHgFVrLPTucHtA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLFj_Z11lFc-K.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLFj_Z1JlFc-K.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLFj_Z1xlFQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z11lFc-K.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJbecmNE.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJnecmNE.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJfecg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLGT9Z11lFc-K.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLGT9Z1JlFc-K.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLEj6Z11lFc-K.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+*{box-sizing: border-box;}
+body {
+	padding: 0;
+	margin: 0;
+	font-family: 'Poppins', sans-serif;
+    font-size: 14px
+}
+.adminimal .messages {
+    margin: 1rem 0 1rem 0;
+    border-width: 1px 0px 1px 0;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    background-size: 1.3rem;
+    background-position: 5px 50%;
+  }
+  
+  .adminimal .messages--error {
+    border-color: #E32700;
+  }
+  
+  .adminimal .messages--warning {
+    border-color: #E29700;
+  }
+  
+  .adminimal .messages--status {
+    border-color: #73B355;
+  }
+
+  .adminimal #block-cmsmenu ul , .adminimal #block-marketingmanagement ul ,.adminimal .block-menu ul{
+  display: flex;
+  -webkit-display: flex;
+  -ms-display: flex;
+  -moz-display: flex;
+  list-style: none;
+  background: #fff;
+margin: 0 -2.5% !important;
+padding:0 15px;
+box-shadow: 0px 3px 5px rgb(0 0 0 / 30%);
+}
+.adminimal  #block-cmsmenu li ,.adminimal #block-marketingmanagement li ,.adminimal .block-menu li{ 
+  list-style: none;position: relative;
+}
+.adminimal #block-cmsmenu li ul ,.adminimal #block-marketingmanagement li ul ,.adminimal .block-menu li ul
+{display:none;position: absolute;left:0;top:100%;width:100%;box-shadow: 0 5px 5px rgba(0,0,0,0.3);padding:  0; z-index: 99;min-width:150px;margin:0 !important}
+.adminimal #block-cmsmenu li li ul ,.adminimal #block-marketingmanagement li li ul ,.adminimal .block-menu li li ul{
+left:100%;top:0;
+}
+.adminimal #block-cmsmenu li li ul ,
+.adminimal #block-cmsmenu li li ul ,.adminimal .block-menu li li ul{left:100%;top:0;}
+
+.adminimal #block-cmsmenu li:hover > ul,.adminimal #block-marketingmanagement li:hover > ul,.adminimal .block-menu li:hover > ul {display:block;}
+
+
+.adminimal #block-cmsmenu li a ,.adminimal #block-marketingmanagement li a ,.adminimal .block-menu li a{color:#1f1463;font-size: 16px;display: block;padding:10px;font-weight:600;}
+.adminimal #block-cmsmenu li a:hover,.adminimal #block-marketingmanagement li a:hover ,.adminimal .block-menu li a:hover  {color:#ff6000;text-decoration: none;}
+/* .adminimal #block-cmsmenu li:hover,.adminimal #block-marketingmanagement li:hover,.adminimal .block-menu li:hover{background-color: #E29700;} */
+
+.adminimal #block-cmsmenu li li a ,.adminimal #block-marketingmanagement li li a ,.adminimal .block-menu li li  a{padding:5px 10px;border-bottom:1px solid #fff;}
+
+.adminimal #block-cmsmenu li li:last-child a,.adminimal #block-marketingmanagement li li:last-child a,.adminimal .block-menu li li:last-child a  {border: 0;}
+
+.adminimal #block-cmsmenu li.menu-item--expanded,.adminimal #block-marketingmanagement li.menu-item--expanded ,.adminimal .block-menu li.menu-item--expanded{
+  padding-right: 25px;
+}
+.adminimal #block-cmsmenu li.menu-item--expanded li.menu-item--expanded ,.adminimal #block-marketingmanagement li.menu-item--expanded li.menu-item--expanded
+,.adminimal .block-menu  li.menu-item--expanded li.menu-item--expanded 
+{
+    padding-right: 0;
+}
+.adminimal .block-menu li.menu-item--expanded:after,.adminimal #block-cmsmenu li.menu-item--expanded:after,.adminimal #block-marketingmanagement li.menu-item--expanded:after {
+content:" ";
+border-left:5px solid transparent; 
+border-right:5px solid transparent; 
+border-top:5px solid #1f1463; 
+position: absolute;
+right: 10px;top:50%;
+}
+.adminimal .block-menu li.menu-item--expanded:hover:after,.adminimal #block-cmsmenu li.menu-item--expanded:hover:after,.adminimal #block-marketingmanagement li:hover.menu-item--expanded:after {
+  border-top:5px solid #ff6000;
+  }
+.adminimal .block-menu li li.menu-item--expanded:after,.adminimal #block-cmsmenu li li.menu-item--expanded:after,.adminimal #block-marketingmanagement li li.menu-item--expanded:after {
+  content:" ";
+  border-top:5px solid transparent; 
+  border-bottom:5px solid transparent; 
+  border-left:5px solid #1f1463; 
+  border-right:0; 
+  position: absolute;
+  right: 6px;top:40%;
+  }
+  .adminimal .block-menu li li.menu-item--expanded:hover:after,.adminimal #block-cmsmenu li li.menu-item--expanded:hover:after,.adminimal #block-marketingmanagement li li.menu-item--expanded:hover:after {
+    border-left:5px solid #ff6000;
+    border-top:5px solid transparent; 
+    }
+  body.adminimal{background:#f8f8f8;}
+  .adminimal .content-header{padding: 15px 0 !important;background-color: #1f1463;}
+  .adminimal .region-header{display: flex;justify-content: space-between;align-items: center;}
+  .adminimal #block-sitebranding{width: 80px;}
+  .adminimal #block-useraccountmenu ul , .adminimal #block-useraccountmenu li{list-style: none;}
+  .adminimal #block-useraccountmenu a{color:#fff;}
+  .adminimal .page-title, .adminimal .heading-a {
+    color: #1f1463;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1.2em;
+    margin-bottom: 1rem;
+    font-weight: 560;
+    margin-top: 30PX;
+}
+.adminimal nav.is-horizontal.is-collapsible.position-container.is-horizontal-enabled ul.tabs.primary{
+    margin: 0 !important;
+}
+
+.adminimal .school-list > ul{list-style: none;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+
+}
+.adminimal .school-list > ul > li {
+  padding: 44px;
+-ms-flex: 0 0 33.333333%;
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+position: relative;
+}
+.adminimal .school-list > ul > li > input[type="checkbox"]{position: absolute;left: 60px;top:60px;}
+.adminimal .school-list > ul > li > input[type="checkbox"] {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+}
+.adminimal .info {
+  border: solid 1px #ddd;
+  border-radius: 30px;
+  transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+.adminimal .bulding {
+  background: #1f1463;
+  border-radius: 30px 30px 0 0;
+}
+.adminimal .bulding img {
+  width: 100%;
+  height: 191px;
+  object-fit: scale-down;
+  border-radius: 28px 28px 0px 0px;
+}
+.adminimal .school-detail {
+  position: relative;
+  background: rgb(255, 255, 255);
+  border-radius: 30px;
+  padding: 44px 30px 20px;
+}
+.adminimal .school-logo2 {
+  position: absolute;
+  top: -66px;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  left: 50%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  border: solid 1px #eee;
+}
+.adminimal .school-logo2 img {
+  width: 80px;
+  height: 66px;
+  object-fit: scale-down;
+}
+.adminimal .info h3 {
+  font-weight: 800;
+  font-size: 23px;
+  color: #1f1463;
+  line-height: 23px;
+  margin-bottom: 30px;
+  text-align: center;
+  padding: 0 12px;
+}
+.adminimal .info h3 a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+.adminimal .info ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+.adminimal .info ul li > span {
+  display: inline-block;
+  color: #000;
+  font-size: 14px;
+  width: 110px;
+  font-weight: 600;
+}
+.adminimal .info ul li > label {
+  color: #000;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: 300;
+  position: relative;
+  top: -4px;
+  margin-bottom: 8px;
+}
+.adminimal .facility-list {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  border-top: solid 1px #bdbdbd;
+  padding-top: 14px;
+  border-bottom: solid 1px #bdbdbd;
+  padding-bottom: 13px;
+}
+.adminimal .facility-list > div {
+  position: relative;
+  padding: 0 0 0 43px;
+  min-height: inherit;
+  text-align: center;
+  border: none;
+}
+
+.adminimal .facility-list > div img {
+  position: absolute;
+  width: 31px;
+  top: 0;
+  left: 0;
+  height: auto;
+object-fit: scale-down;
+}
+.adminimal .facility-list > div h5 {
+  font-size: 15px;
+  width: 78px;
+  color: #000;
+  line-height: 18px;
+  margin: 0;
+  text-align: left;
+  word-break: unset;
+}
+.adminimal .action-btn a {
+  background: #ff6000;
+  border: none;
+  color: #fff;
+  margin-left: 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 15px;
+  display: inline-block;
+  text-align: center;
+  padding: 4px 13px;
+  font-weight: 600;
+  min-width: 124px;
+  text-decoration: none;
+  width: 47%;
+}
+.adminimal .action-btn a.enq {
+  background: #0047c7;
+}
+.adminimal .info:hover {
+  box-shadow: 0 0 50px 3px #c6c6c6;
+}
+.school-list > ul{list-style: none;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+
+}
+.adminimal .school-list > ul > li {
+  padding: 44px;
+-ms-flex: 0 0 33.333333%;
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+position: relative;
+}
+.adminimal .school-list > ul > li > input[type="checkbox"]{position: absolute;left: 60px;top:60px;}
+.adminimal #views-form-school-list-for-admin-page-1 .views-view-grid .views-row > div,.adminimal .view-school-list-for-admin .views-view-grid .views-row > div{padding: 0 3% !important;position: relative;margin-bottom: 100px;}
+.adminimal #views-form-school-list-for-admin-page-1  .form-wrapper ,.adminimal .view-school-list-for-admin  .form-wrapper{margin-bottom: 100px;}
+.adminimal #views-form-school-list-for-admin-page-1  .views-field-search-api-bulk-form ,.adminimal .view-school-list-for-admin  .views-field-search-api-bulk-form{
+  position: absolute;
+left: 15%;
+top: 0;
+z-index: 12;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form-item-items-per-page{clear: left;display: flex;margin-right: 15px;}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form-item-items-per-page label{margin-right:15px;}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form-item-items-selected{margin-top: 14px;margin-bottom: 0;}
+.adminimal #views-form-school-list-for-admin-page-1 .form-wrapper , .adminimal .view-school-list-for-admin .form-wrapper{padding-left: 37px;}
+.adminimal .view-block-for-marketing-school .view-header .action-btn.multplbtn {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 25px;
+  z-index: 9;
+  padding-left: 15px;
+  padding-right: 15px;
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+.adminimal .action-btn a {
+  background: #ff6000;
+  border: none;
+  color: #fff;
+  margin-left: 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 15px;
+  display: inline-block;
+  text-align: center;
+  padding: 4px 13px;
+  font-weight: 600;
+  min-width: 124px;
+  text-decoration: none;
+  padding: 12px 30px;
+  width: 100%;
+  margin: 0;
+}
+.adminimal .action-btn a.enq, .action-btn a.enqd, .action-btn a.enqmc {
+  background: #0047c7;
+}
+
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form--inline,.adminimal #views-exposed-form-school-list-for-admin-page-2 .form--inline{
+  display: flex;flex-flow: wrap;justify-content: space-between;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form--inline:after,.adminimal #views-exposed-form-school-list-for-admin-page-2 .form--inline:after{display: none;}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form--inline > div,.adminimal #views-exposed-form-school-list-for-admin-page-2 .form--inline > div{
+  width: 23% ;
+  margin: 0 0 15px !important;
+  display: block ;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form-item-items-per-page{
+  position: absolute;
+    right: 100px;
+    top: -50px;
+    display: flex !important;
+    align-items: center;
+    width: 161px !important;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form-item-items-per-page select{width: 100px;}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 select ,.adminimal  #views-exposed-form-school-list-for-admin-page-1 input[type="text"],
+.adminimal #views-exposed-form-school-list-for-admin-page-2 select ,.adminimal  #views-exposed-form-school-list-for-admin-page-2 input[type="text"]{
+  background-position: right center; width: 100%;max-height: 64px; border-radius: 3px;
+  background-color: #fff;border: 1px solid #b7b7b7;min-height: 42px;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 select[multiple="multiple"],.adminimal #views-exposed-form-school-list-for-admin-page-2 select[multiple="multiple"]{
+  padding: 0;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 select[multiple="multiple"] option,.adminimal #views-exposed-form-school-list-for-admin-page-2 select[multiple="multiple"] option{
+  padding: 5px 10px;
+}
+.adminimal .layout-region.layout-region-node-secondary {
+  box-shadow: 0 0 10px rgb(0 0 0 / 30%);border-radius: 15px;
+}
+.entity-meta .seven-details:last-child {
+  border-radius: 0 0 15px 15px;
+}
+.entity-meta{border-radius: 15px;}
+.entity-meta__header {
+  border-radius: 15px 15px 0 0;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 select option:hover,.adminimal #views-exposed-form-school-list-for-admin-page-2 select option:hover{
+  background-color: #0ec0fc;cursor: pointer;
+  color: #fff;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1,#views-exposed-form-school-list-for-admin-page-2{position: relative;margin-bottom: 100px;}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .js-form-type-checkbox,.adminimal #views-exposed-form-school-list-for-admin-page-2 .js-form-type-checkbox{
+  position: absolute;
+  right: 0;
+  top: -40px;
+  text-align: right;
+  width: 100px  !important;
+}
+.adminimal #views-form-school-list-for-admin-page-1{text-align: right;}
+.adminimal #marketing-page-form {text-align: right;}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 input[type="submit"] ,
+.adminimal  #views-exposed-form-school-list-for-admin-page-2 input[type="submit"],
+.adminimal  #views-form-school-list-for-admin-page-1 input[type="submit"],
+.adminimal  #marketing-page-form input[type="submit"] ,.adminimal #node-marketing-management-edit-form .field-add-more-submit{
+  border: 0;
+border-radius: 2px;
+background: #ff6000;
+color: #fff;
+font-size: 15px;
+font-weight: 600;
+width: auto;
+display: inherit;
+cursor: pointer;
+padding: 8px 20px;
+min-width: 130px;
+display: inline-block;
+margin-top: 20px;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form-wrapper ,.adminimal #views-exposed-form-school-list-for-admin-page-2 .form-wrapper{padding-left: 0;text-align: right;width: 49%  !important;}
+.adminimal #node-marketing-management-edit-form input[type="text"],.adminimal #node-marketing-management-edit-form select{
+  background-position: right center; border-radius: 3px;
+  background-color: #fff;border: 1px solid #b7b7b7;min-height: 42px;
+}
+.adminimal #node-marketing-management-edit-form  thead th{
+  background: none;color:#000;padding: 0;
+}
+.adminimal #node-marketing-management-edit-form #field-marketing-school-add-more-wrapper ,.adminimal #node-marketing-management-edit-form #edit-field-marketing-school-wrapper{
+  width: 450px;
+}
+.adminimal #node-marketing-management-edit-form  .tabledrag-toggle-weight-wrapper{position: relative;top:22px;}
+.adminimal #node-marketing-management-edit-form  tr td{padding: 0;}
+  .adminimal #node-marketing-management-edit-form  tr{
+  border:0 !important;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0){
+  .adminimal  #views-exposed-form-school-list-for-admin-page-1 select ,.adminimal  #views-exposed-form-school-list-for-admin-page-1 input[type="text"],.adminimal  #views-exposed-form-school-list-for-admin-page-2 select ,.adminimal  #views-exposed-form-school-list-for-admin-page-2 input[type="text"]{
+    background-color: #fff;
+  }
+}
+.adminimal .region-header #block-sitebrandingblock img {
+  display: block;
+  min-width: 124px;
+}
+.adminimal #views-form-school-list-for-admin-page-1 .form-wrapper ,.adminimal #block-marketingpageblock{
+  padding-left: 37px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  padding-right: 2.5%;
+  z-index: 999;
+  margin-bottom: 10px;
+}
+.adminimal #block-useraccountmenu ul{background-color: transparent;box-shadow: none;}
+@media only screen and (max-width:767px) {
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form-wrapper ,.adminimal #views-exposed-form-school-list-for-admin-page-2 .form-wrapper{width: 100%  !important;text-align: center;}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form--inline > div, .adminimal #views-exposed-form-school-list-for-admin-page-2 .form--inline > div{width: 100%;}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form-item-items-per-page {
+  position: static;
+  display: block !important;
+  width: 100% !important;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .js-form-type-checkbox, .adminimal #views-exposed-form-school-list-for-admin-page-2 .js-form-type-checkbox {
+  position: static;
+  right: 0;
+  top: -40px;
+  text-align: left;
+  width: 100% !important;
+}
+.adminimal #views-exposed-form-school-list-for-admin-page-1 .form-item-items-per-page select{width: 100%;}
+.adminimal #views-form-school-list-for-admin-page-1 .views-view-grid .views-row > div, .adminimal .view-school-list-for-admin .views-view-grid .views-row > div{
+  padding: 0 20px 50px;
+-ms-flex: 0 0 100%;
+flex: 0 0 100%;
+max-width: 100%;
+width: 100% !important;
+}
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px){	
+  .adminimal #views-form-school-list-for-admin-page-1 .views-view-grid .views-row > div, .adminimal .view-school-list-for-admin .views-view-grid .views-row > div{
+		padding: 20px;
+		-ms-flex: 0 0 48%;
+		flex: 0 0 48%;
+		max-width: 48%;
+    width: 48% !important;
+	}
+}
+.adminimal .description {
+  color: #ff6000 !important;
+  font-weight: bold;
+}
+.adminimal #menu-edit-form .link.tabledrag-toggle-weight{display:none;}
+.adminimal #menu-link-content-menu-link-content-form #edit-weight-wrapper{display: none;}
+.adminimal  a.tabledrag-handle .handle{margin-top: 0;  background-position: center;}
+.field--name-revision-log {display: none;}
+#edit-revision-information {display: none;}
+.adminimal  .link.tabledrag-toggle-weight {display:none;}

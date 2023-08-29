@@ -1,0 +1,88 @@
+{#
+/**
+* @file
+* Default view template to display all the fields in a row.
+*
+* Available variables:
+* - view: The view in use.
+* - fields: A list of fields, each one contains:
+*   - content: The output of the field.
+*   - raw: The raw data for the field, if it exists. This is NOT output safe.
+*   - class: The safe class ID to use.
+*   - handler: The Views field handler controlling this field.
+*   - inline: Whether or not the field should be inline.
+*   - wrapper_element: An HTML element for a wrapper.
+*   - wrapper_attributes: List of attributes for wrapper element.
+*   - separator: An optional separator that may appear before a field.
+*   - label: The field's label text.
+*   - label_element: An HTML element for a label wrapper.
+*   - label_attributes: List of attributes for label wrapper.
+*   - label_suffix: Colon after the label.
+*   - element_type: An HTML element for the field content.
+*   - element_attributes: List of attributes for HTML element for field content.
+*   - has_label_colon: A boolean indicating whether to display a colon after
+*     the label.
+*   - element_type: An HTML element for the field content.
+*   - element_attributes: List of attributes for HTML element for field content.
+* - row: The raw result from the query, with all data it fetched.
+*
+* @see template_preprocess_views_view_fields()
+*
+* @ingroup themeable
+*/
+#}
+<input type="checkbox" name="schoolname[]" value="{{ fields.nid.content|striptags|trim }}" class="checkschool"/>
+<div class="info">
+	<div class="bulding">
+		<img src="{{ fields.field_school_photo.content|striptags|trim }}" class="img-fluid" alt="bulding">
+	</div>
+	<div class="school-detail">
+		<div class="school-logo2">
+			<img src="{{ fields.field_school_logo.content|striptags|trim }}" alt="lead" class="img-fluid">
+		</div>
+		<h3>{{ fields.field_school_name.content }}</h3>
+		<div class="school-locat">
+			<ul>
+				<li>
+					<span>School Facilities</span>
+					<div class="facilities-icon">
+					{% set nodeid = fields.nid.content|raw|striptags|trim %}
+					{% set facilities = get_facilities_data(nodeid) %}
+					{% for facilities_element in facilities %}
+						<span class="{{ facilities_element.class }}"></span>
+					{% endfor %}
+					</div>
+				</li>
+				<li>
+					<span>State</span>
+					<label>{{ fields.field_state.content }}</label>
+				</li>
+				<li>
+					<span>Board</span>
+					<label>{{ fields.field_board_affiliation.content }}</label>
+				</li>
+				<li>
+					<span>Type</span>
+					{% if(fields.field_co_education_status.content|raw|striptags|trim == "Yes") %}
+					<label>Co-Ed</label>
+					{% endif %}
+				</li>
+			</ul>
+		</div>
+		{% set nodeid = fields.nid.content|raw|striptags|trim %}
+		{% set facilities = get_facilities_data(nodeid) %}
+		<div class="action-btn">
+		     {% set urlalias = get_node_path_alias(nodeid) %}
+		    <a href="{{ urlalias }}" class="view">View Detail</a>
+			{% if (logged_in == 1) %}
+			 {% if(countc == 1) %}
+				<a href="javascript:void(0)" class="enq" id="enqBtnc" data-id="{{ fields.nid.content|render|striptags|trim }}">Apply</a>
+				{% else %}
+				<a href="javascript:void(0)" class="enqmc" id="enqBtn" data-id="{{ fields.nid.content|render|striptags|trim }}">Apply</a>
+					{% endif %}
+			{% else %}
+				<a href="javascript:void(0)" class="enqd nonlogin" id="enqBtn" data-id="{{ fields.nid.content|render|striptags|trim }}" data-info="{{ current_path }}">Apply</a>
+			{% endif %}
+		</div>
+	</div>
+</div>

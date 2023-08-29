@@ -1,0 +1,12 @@
+    <div class="profile-tab-content">
+    <h1>My Profile</h1>
+        <form{{ attributes }}>
+            {{ element.field_parent_name }}
+            {{ element.field_mobile_no }}
+            {{ element.field_pchild_name }}
+            {{ element.form_build_id }} {# required #}
+            {{ element.form_token }} {# required #}
+            {{ element.form_id }} {# required #}
+           <div class="btn-wrapper"> {{ element.actions.submit }}</div>
+    </form>
+    </div>

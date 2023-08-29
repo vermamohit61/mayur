@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+{#{{ recent_search_keywords_block }}#}
+<form{{ attributes }}>
+   {{children}}
+{# <a href="/faqs">FAQ</a>#}
+</form>
+
+<div class="action-btn multplbtn fixed-btn" style="display:none;">
+	{% if (logged_in == 1) %}
+{% if (countc == 1) %}
+<a href="javascript:void(0)" class="enqd multienqc" id="enqBtnd" data-id="253">Apply to Selected Schools</a>
+{% else %}
+<a href="javascript:void(0)" class="enqd multienq" id="enqBtnd" data-id="253">Apply to Selected Schools</a>
+{% endif %}
+{% else %}
+	<a href="javascript:void(0)" class="enqd nonlogin" id="enqBtn" data-info='{{ current_path }}'>Apply to Selected Schools</a>
+	{% endif %}
+</div>

@@ -1,0 +1,17 @@
+name: LEAD-SCHOOL
+type: theme
+description: 'A custome theme for lead school'
+core_version_requirement: ^8.8 || ^9
+base theme: false
+libraries:
+- leadschool/global-styling
+package: custom
+regions:
+  header: Header
+  navigation: navigation
+  breadcrumb: Breadcrumb
+  banner: Banner
+  content: Content
+  sidebar_first: Primary
+  footer_above: Footer Above
+  footer: Footer

@@ -1,0 +1,67 @@
+{#
+/**
+* @file
+* Default view template to display all the fields in a row.
+*
+* Available variables:
+* - view: The view in use.
+* - fields: A list of fields, each one contains:
+*   - content: The output of the field.
+*   - raw: The raw data for the field, if it exists. This is NOT output safe.
+*   - class: The safe class ID to use.
+*   - handler: The Views field handler controlling this field.
+*   - inline: Whether or not the field should be inline.
+*   - wrapper_element: An HTML element for a wrapper.
+*   - wrapper_attributes: List of attributes for wrapper element.
+*   - separator: An optional separator that may appear before a field.
+*   - label: The field's label text.
+*   - label_element: An HTML element for a label wrapper.
+*   - label_attributes: List of attributes for label wrapper.
+*   - label_suffix: Colon after the label.
+*   - element_type: An HTML element for the field content.
+*   - element_attributes: List of attributes for HTML element for field content.
+*   - has_label_colon: A boolean indicating whether to display a colon after
+*     the label.
+*   - element_type: An HTML element for the field content.
+*   - element_attributes: List of attributes for HTML element for field content.
+* - row: The raw result from the query, with all data it fetched.
+*
+* @see template_preprocess_views_view_fields()
+*
+* @ingroup themeable
+*/
+#}
+{% set nodeid = fields.nid.content|raw|striptags|trim %}
+<section class="contact padding-box school_detail_page_block_10">
+   <div class="lead-container">
+         <div class="col-md-12 Contact-det pl-5">
+         <div class="heading mb-3">
+               <h2>Contact Details</h2>
+            </div>
+            <div class="loc-detail loc-address-contact ">
+               <p>{{ fields.field_school_name.content }}</p>
+               <p class=>{{ fields.field_address_line1.content }} {{ fields.field_address_line2.content }}</p>
+            </div>
+
+            {% if (schoolmask == 1) %}
+               <div class="enq-cont-wrap">
+	               <p class="success-text">Applied</p>
+               </div>
+            {% else %}
+               {% if (uid == 0) %}
+                  <div class="enq-cont-wrap">
+                     <p>Get in touch with the school. <br>Apply now to receive a call back</p>
+	                  {#<a href='/user/loginform?dest={{ current_path_alias }}'>Apply</a>#}
+                     <a class="nonlogin" data-id="{{ node_id }}" data-info="{{ current_path_alias }}" href='javascript:void(0)'>Apply</a>
+                  </div>
+               {% else %}
+               <div class="enq-cont-wrap">
+                  <p>Get in touch with the school. <br>Apply now to receive a call back</p>
+                  <a class="enq-btn" id="pop-form-2" href="javascript:void(0)">Apply Now</a>
+                </div>
+                {% endif %}
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</section>

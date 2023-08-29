@@ -1,0 +1,89 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ */
+#}
+
+  
+{% for row in rows %}
+
+  {%
+    set row_classes = [
+      default_row_class ? 'views-row',
+    ]
+  %}
+  <div class="info">
+
+	<div class="bulding">
+	<img src="{{row.content['#view'].style_plugin.render_tokens[ loop.index0 ]['{{ field_school_photo }}'] }}" class="img-fluid" alt="bulding">
+	</div>
+	<div class="school-detail">
+		<div class="school-logo2"> <img src="{{ row.content['#view'].style_plugin.render_tokens[ loop.index0 ]['{{ field_school_logo }}']   }}" alt="lead" class="img-fluid">
+		</div>
+    
+    
+		<h3>{{row.content['#row']._entity.title.value}}
+
+</h3>
+		<div class="school-locat">
+			<ul>
+				<li>
+					<span>State</span>
+				 <label>{{ row.content['#view'].style_plugin.render_tokens[ loop.index0 ]['{{ field_state }}']   }}</label>
+				</li>
+				<li>
+					<span>Board</span>
+					<label>{{ row.content['#view'].style_plugin.render_tokens[ loop.index0 ]['{{ field_board_affiliation }}']   }}</label>
+				</li>
+				<li>
+					<span>Type</span>
+          {% set coed = row.content['#view'].style_plugin.render_tokens[ loop.index0 ]['{{ field_co_education_status }}'] %}
+          {% set co_ed = coed|striptags|trim %}
+          {% if(co_ed == "Yes") %}
+					<label>Co-Ed</label>
+					{% endif %}			
+				</li>
+			</ul>
+		</div>
+    
+		{% set nodeid = row.content['#view'].style_plugin.render_tokens[ loop.index0 ]['{{ nid }}']  %}
+    {% set node_nid = nodeid|striptags|trim %}
+		{% set facilities = get_facilities_data(node_nid) %}
+		<div class="facility-list">
+			<div class="box-li">
+				<img src={{facilities.0.url}} class="img-fluid" alt="icon">
+				<h5 style="">{{facilities.0.name}}</h5>
+			</div>
+			<div class="box-li">
+				<img src={{facilities.1.url}} class="img-fluid" alt="icon">
+				<h5 style="">{{facilities.1.name}}</h5>
+			</div>
+		</div>
+		<div class="action-btn">
+		   <a href="{{ url('entity.node.canonical', { 'node': node_nid }) }}" class="view">View Detail</a>
+			{% if (logged_in == 1) %}
+			 {% if(countc == 1) %}
+				<a href="javascript:void(0)" class="enq" id="enqBtnc" data-id="{{ fields.nid.content|render|striptags|trim }}">Apply</a>
+				{% else %}
+				<a href="javascript:void(0)" class="enqmc" id="enqBtn" data-id="{{ fields.nid.content|render|striptags|trim }}">Apply</a>
+					{% endif %}
+			{% else %}
+				<a href="" class="enqd nonlogin" id="enqBtn" data-id="{{ fields.nid.content|render|striptags|trim }}">Apply</a>
+			{% endif %}
+		</div>
+	</div>
+  </div>
+  {% endfor %}
+

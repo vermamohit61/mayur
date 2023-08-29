@@ -1,0 +1,120 @@
+{#
+    /**
+    * @file
+    * Default view template to display all the fields in a row.
+    *
+    * Available variables:
+    * - view: The view in use.
+    * - fields: A list of fields, each one contains:
+    *   - content: The output of the field.
+    *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+    *   - class: The safe class ID to use.
+    *   - handler: The Views field handler controlling this field.
+    *   - inline: Whether or not the field should be inline.
+    *   - wrapper_element: An HTML element for a wrapper.
+    *   - wrapper_attributes: List of attributes for wrapper element.
+    *   - separator: An optional separator that may appear before a field.
+    *   - label: The field's label text.
+    *   - label_element: An HTML element for a label wrapper.
+    *   - label_attributes: List of attributes for label wrapper.
+    *   - label_suffix: Colon after the label.
+    *   - element_type: An HTML element for the field content.
+    *   - element_attributes: List of attributes for HTML element for field content.
+    *   - has_label_colon: A boolean indicating whether to display a colon after
+    *     the label.
+    *   - element_type: An HTML element for the field content.
+    *   - element_attributes: List of attributes for HTML element for field content.
+    * - row: The raw result from the query, with all data it fetched.
+    *
+    * @see template_preprocess_views_view_fields()
+    *
+    * @ingroup themeable
+    */
+    #}
+    {% set nodeid = fields.nid.content|raw|striptags|trim %}
+    <!-- <input type="checkbox" name="schoolname[]" value="{{ fields.nid.content|striptags|trim }}" class="checkschool" /> -->
+    <div class="Shortlist"><img src="/themes/custom/leadschool/images/bookmark-simple.svg"> <span>Shortlist</span></div>
+    <div class="info">
+        <div class="bulding">
+			{% set urlalias = get_node_path_alias(nodeid) %}
+            {% set lead_school_type_tid = fields.field_lead_school_type.content|striptags|trim  %}
+            {% if lead_school_type_tid != '' %}
+                {% set lead_label = get_school_type('lead_school_type',lead_school_type_tid) %}
+                    {% if lead_label == 'LEAD Altus School' %}
+                        <p class="lead-gold-prowered">{{ lead_label }} </p>
+                    {% else %}
+                        <p class="lead-prowered">{{ lead_label }} </p>
+                    {% endif %}
+            {% endif %}
+    
+            <a href="{{ urlalias }}"><img src="{{ fields.field_school_photo.content|striptags|trim }}" class="img-fluid" alt="bulding"></a>
+        </div>
+        <div class="school-detail">
+            <div class="school-logo2 newschool-logo2">
+                <img src="{{ fields.field_school_logo.content|striptags|trim }}" alt="lead" class="img-fluid">
+            </div>
+            {#<div><span>Lead Managed</span></div>#}
+            <h3>{{ fields.field_school_name.content }}
+            
+            </h3>
+            <div class="school-locat">
+                <div class="school-city">
+                    <span class="map-location">{{ fields.field_city.content|striptags|trim }}</span>
+                    <span>{{ fields.field_state.content|striptags|trim }} <a href="javascript:void(0)" node-id="{{ nodeid }}" class="location-href ajax-school-map-load">Location</a></span>
+                    <ul class="newlabel">
+                        <li><span>{{ fields.field_board_affiliation.content|striptags|trim }} Board</span></li>
+                        <li><span>{{ fields.name.content }} Medium</span></li>
+                        {% set grade_names = get_gradeNames(nodeid) %}
+                        <li><span>{{ grade_names.0 }} - {{ grade_names.1 }}</span></li>
+                        <li><span>Established in <strong>{{ fields.field_established_in_year.content }}</strong></span></li>
+                    </ul>
+                    <ul class="range-ul">
+                        <li><span>Teacher to Student Ratio - <strong>{{ fields.field_teacher_student_ratio.content }}</strong></span></li>
+                        <li><span>Fee Range - <strong>Rs {{ fields.field_echild_name.content|striptags|trim }}  to Rs {{ fields.field_last_name.content|striptags|trim }}  per year</strong></span></li>
+                    </ul>
+                </div>
+            </div>
+    
+            {% set nodeid = fields.nid.content|raw|striptags|trim %}
+            {% set facilities = get_facilities_data(nodeid) %}
+    
+            <div class="school-facility-action-container">
+    
+                <div class="school-facilities">
+                    <h4>Facilities :</h4>
+                    <ul class="facilities_dots">
+                    {% for facilities_element in facilities %}
+                        <li>{{ facilities_element.name }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+    
+                <div class="action-btn">
+                    {#<a href="{{ urlalias }}" class="view">Know More</a>#}
+                    {% if (logged_in == 1) %}
+                        {% if (countc == 1) %}
+                            <a href="javascript:void(0)" class="enq" id="enqBtnc"
+                            data-id="{{ fields.nid.content|render|striptags|trim }}">Apply Now</a>
+                        {% else %}
+                            <a href="javascript:void(0)" class="enqmc" id="enqBtn"
+                            data-id="{{ fields.nid.content|render|striptags|trim }}">Apply Now</a>
+                        {% endif %}
+                    {% else %}
+                        <a href="javascript:void(0)" class="enqd nonlogin" id="enqBtn"
+                        data-id="{{ fields.nid.content|render|striptags|trim }}" data-info='{{ current_path }}'>Apply Now</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% set r_count = fields.counter.content|render|striptags|trim %}
+    {% if page_count == 'yes' and distance != 12 %}
+    <div class="result_separator search-seaprator" id="search_separator_{{ r_count }}"><br>
+        <hr>
+        <div id="expose_filter_{{ r_count }}"></div>
+    </div>
+    {% elseif page_count == 'yes' and distance == 12 %}
+    <div class="search-seaprator" id="expose_filter_{{ r_count }}"></div>
+    {% endif %}
+    
+    

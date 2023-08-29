@@ -1,0 +1,95 @@
+{#
+/**
+* @file
+* Default view template to display all the fields in a row.
+*
+* Available variables:
+* - view: The view in use.
+* - fields: A list of fields, each one contains:
+*   - content: The output of the field.
+*   - raw: The raw data for the field, if it exists. This is NOT output safe.
+*   - class: The safe class ID to use.
+*   - handler: The Views field handler controlling this field.
+*   - inline: Whether or not the field should be inline.
+*   - wrapper_element: An HTML element for a wrapper.
+*   - wrapper_attributes: List of attributes for wrapper element.
+*   - separator: An optional separator that may appear before a field.
+*   - label: The field's label text.
+*   - label_element: An HTML element for a label wrapper.
+*   - label_attributes: List of attributes for label wrapper.
+*   - label_suffix: Colon after the label.
+*   - element_type: An HTML element for the field content.
+*   - element_attributes: List of attributes for HTML element for field content.
+*   - has_label_colon: A boolean indicating whether to display a colon after
+*     the label.
+*   - element_type: An HTML element for the field content.
+*   - element_attributes: List of attributes for HTML element for field content.
+* - row: The raw result from the query, with all data it fetched.
+*
+* @see template_preprocess_views_view_fields()
+*
+* @ingroup themeable
+*/
+#}
+
+<section class="Admission  pt-0 padding-box" id="admission">
+   <div class="lead-container">
+      <div class="heading mb-5">
+         <h2>Admission Process</h2>
+      </div>
+      <div class="row">
+      {#
+         <div class="col-md-3">
+            <img src="https://leadschool.in/schools/wp-content/themes/LeadSchoolTheme/newdesign/images/admissiopro.png" class="img-fluid" alt="icon">
+         </div>
+         #}
+          {#<div class="col-md-9">#}
+          <div class="col-md-12" style="width:100%;">
+            <div class="ad_det">
+               {#<h5>Process of Admission </h5>#}
+               <ul>
+                  {% if fields.field_admission_process_step_1.content|render|striptags|trim|length %}
+                  <li>{{ fields.field_admission_process_step_1.content|render|striptags|trim }}</li>
+                  {% endif %}
+                  {% if fields.field_admission_process_step_2.content|render|striptags|trim|length %}
+                  <li>{{ fields.field_admission_process_step_2.content|render|striptags|trim }}</li>
+                  {% endif %}
+                  {% if fields.field_admission_process_step_3.content|render|striptags|trim|length %}
+                  <li>{{ fields.field_admission_process_step_3.content|render|striptags|trim }}</li>
+                  {% endif %}
+                  {% if fields.field_admission_process_step_4.content|render|striptags|trim|length %}
+                  <li>{{ fields.field_admission_process_step_4.content|render|striptags|trim }}</li>
+                  {% endif %}
+                  {% if fields.field_admission_process_step_5.content|render|striptags|trim|length %}
+                  <li>{{ fields.field_admission_process_step_5.content|render|striptags|trim }}</li>
+                  {% endif %}
+                  {% if fields.field_admission_process_step_6.content|render|striptags|trim|length %}
+                  <li>{{ fields.field_admission_process_step_6.content|render|striptags|trim }}</li>
+                 {% endif %}
+               </ul>
+            </div>
+            <div class="ad_det">
+               <ul>
+                  <li>
+                     <span>Admission Contact Person</span>
+                     <strong>{{ fields.field_name_of_contact_person.content|render|striptags|trim }}</strong>
+                  </li>
+                  <li class="phone-icon">
+                     <span>Phone No</span>
+                       {% if (schoolmask == 1) %}
+               <strong>{{ fields.field_contact_person_phone.content|render|striptags|trim }}</strong>
+               {% else %}
+                <strong>91xxxxxxxxx</strong>
+                {% endif %}
+                  </li>
+                  <li class="time-icon">
+                     <span>Call Timing</span>
+                     <strong>{{ fields.field_office_start_time.content|render|striptags|trim }} - {{ fields.field_office_close_time.content|render|striptags|trim }}</strong>
+                  </li>
+                  </ul>
+            </div>
+         </div>
+      </div>
+
+   </div>
+</section>

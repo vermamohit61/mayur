@@ -1,0 +1,220 @@
+{#
+/**
+* @file
+* Theme override for the basic structure of a single Drupal page.
+*
+* Variables:
+* - logged_in: A flag indicating if user is logged in.
+* - root_path: The root path of the current page (e.g., node, admin, user).
+* - node_type: The content type for the current node, if the page is a node.
+* - head_title: List of text elements that make up the head_title variable.
+*   May contain one or more of the following:
+*   - title: The title of the page.
+*   - name: The name of the site.
+*   - slogan: The slogan of the site.
+* - page_top: Initial rendered markup. This should be printed before 'page'.
+* - page: The rendered page markup.
+* - page_bottom: Closing rendered markup. This variable should be printed after
+*   'page'.
+* - db_offline: A flag indicating if the database is offline.
+* - placeholder_token: The token for generating head, css, js and js-bottom
+*   placeholders.
+*
+* @see template_preprocess_html()
+*/
+#}
+{%
+set body_classes = [
+logged_in ? 'user-logged-in',
+not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
+node_type ? 'page-node-type-' ~ node_type|clean_class,
+db_offline ? 'db-offline',
+]
+%}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+<head>
+   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+   <head-placeholder token="{{ placeholder_token }}">
+   <title>{{ head_title|safe_join(' | ') }}</title>
+   <css-placeholder token="{{ placeholder_token }}">
+   <js-placeholder token="{{ placeholder_token }}">
+   <!-- Google Tag Manager -->
+   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','{{ google_an }}');
+   </script>
+   <!-- End Google Tag Manager -->
+<!--Start Geo Location Detection Script-->
+<script type="text/javascript">
+var getCookieLat = getCookie("latName");
+var getCookieLong = getCookie("longName");
+
+function getCookie(name) {
+var dc = document.cookie;
+var prefix = name + "=";
+var begin = dc.indexOf("; " + prefix);
+if (begin == -1) {
+begin = dc.indexOf(prefix);
+if (begin != 0)
+return null;
+
+} else {
+begin += 2;
+var end = document.cookie.indexOf(";", begin);
+if (end == -1) {
+end = dc.length;
+}
+}
+// because unescape has been deprecated, replaced with decodeURI
+return decodeURI(dc.substring(begin + prefix.length, end));
+}
+
+if (getCookieLat === null || getCookieLong === null) {
+  navigator.geolocation.getCurrentPosition(function (position) { // success
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    document.cookie = 'latName=' + latitude;
+    document.cookie = 'longName=' + longitude;
+    document.cookie = 'Mylat=' + latitude;
+    document.cookie = 'Mylong=' + longitude;
+    //window.location.href = '/find-a-school/schools';
+    location.reload();
+  }, function () { // fail
+
+  fetch('https://ipgeolocation.abstractapi.com/v1/?api_key=83eb0873ade64c949e66e2bb894904b9')
+  .then(response =>{
+    return response.json();
+  })
+  .then(data =>{
+    if (getCookieLat === null || getCookieLong === null) {
+      var latitude = data.latitude;
+      var longitude = data.longitude;
+      var stateCode = data.region_iso_code;
+      document.cookie = 'latName=' + latitude;
+      document.cookie = 'longName=' + longitude;
+      document.cookie = 'stateCode=' + stateCode;
+      document.cookie = 'Mylat=' + latitude;
+      document.cookie = 'Mylong=' + longitude;
+      location.reload();
+    }
+  })
+  .catch(function(error) {
+    log('Request failed', error)
+  });
+  //var latitude = 29.004957; // will be removed in future
+  //var longitude = 77.7494717; // will be removed in future
+  //document.cookie = 'latName=' + latitude;
+  //document.cookie = 'longName=' + longitude;
+  });
+}
+
+
+
+window.onload = function(){
+  var myEle = document.getElementById("idgeo");
+  if(myEle){
+document.getElementById("idgeo").onclick = function() {
+  getLocation()
+  setTimeout(function () {
+        document.getElementById('showgeoms').style.display='none';
+    }, 8000);
+  };
+}
+}
+
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, positionError);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition(position) {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  var city = 'your near by place';
+  document.cookie = 'latName=' + latitude;
+  document.cookie = 'longName=' + longitude;
+  var grade_available = jQuery("#school-search-form .location-search-grades .fieldset-wrapper input").val();
+  var grade_available_array = grade_available.split(",");
+
+  var params = new URLSearchParams({
+    'search': 'found near you',
+    'grade_available': grade_available_array,
+    'distance':'12',
+    'latitude': latitude,
+    'longitude': longitude,
+  });
+
+  var search_url = params.toString();
+  window.location.href = '/find-a-school/schools?' + search_url;
+}
+
+function positionError(error) {
+  if (error.PERMISSION_DENIED) {
+    document.getElementById("showgeoms").innerHTML = "<p class='alertbox'>Please enable location permission from settings and try again</p><a class='alert-btn' id='alertt-btn' onclick='hidealert()' href='javascript:void(0)'>&#10006;</a>";
+    document.getElementById("showgeoms").style.display = "flex";
+    // Your custom modal here.
+    //showError('Geolocation is not enabled. Please enable to use this feature.');
+  } else {
+    // Handle other kinds of errors.
+    console.log("Other kind of error: " + error);
+  }
+
+  /*$.ajax({
+  method: "POST",
+  url: "wrap.php",
+  data: { text: $("p.unbroken").text() }
+  })
+  .done(function( response ) {
+    $("p.broken").html(response);
+  });*/
+
+
+}
+
+
+function hidealert() {
+  document.getElementById("showgeoms").style.display = "none";
+}
+
+</script>
+<!--End Geo Location Detection Script-->
+
+</head>
+<body{{ attributes.addClass(body_classes) }}>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id='{{ google_an }}'"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+{#
+Keyboard navigation/accessibility link to main content section in
+page.html.twig.
+#}
+<a href="#main-content" class="visually-hidden focusable skip-link">
+{{ 'Skip to main content'|t }}
+</a>
+{{ page_top }}
+{{ page }}
+{{ page_bottom }}
+<js-bottom-placeholder token="{{ placeholder_token }}">
+
+<script>
+function init_iframe() {
+  var vidDefer = document.getElementsByTagName('iframe');
+  for (var i=0; i<vidDefer.length; i++) {
+    if(vidDefer[i].getAttribute('custom-src')) {
+      vidDefer[i].setAttribute('src',vidDefer[i].getAttribute('custom-src'));
+    }
+  }
+}
+window.setTimeout(init_iframe,6000);
+       </script>
+
+  </body>
+</html>

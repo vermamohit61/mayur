@@ -1,0 +1,225 @@
+{#
+/**
+* @file
+* Default view template to display all the fields in a row.
+*
+* Available variables:
+* - view: The view in use.
+* - fields: A list of fields, each one contains:
+*   - content: The output of the field.
+*   - raw: The raw data for the field, if it exists. This is NOT output safe.
+*   - class: The safe class ID to use.
+*   - handler: The Views field handler controlling this field.
+*   - inline: Whether or not the field should be inline.
+*   - wrapper_element: An HTML element for a wrapper.
+*   - wrapper_attributes: List of attributes for wrapper element.
+*   - separator: An optional separator that may appear before a field.
+*   - label: The field's label text.
+*   - label_element: An HTML element for a label wrapper.
+*   - label_attributes: List of attributes for label wrapper.
+*   - label_suffix: Colon after the label.
+*   - element_type: An HTML element for the field content.
+*   - element_attributes: List of attributes for HTML element for field content.
+*   - has_label_colon: A boolean indicating whether to display a colon after
+*     the label.
+*   - element_type: An HTML element for the field content.
+*   - element_attributes: List of attributes for HTML element for field content.
+* - row: The raw result from the query, with all data it fetched.
+*
+* @see template_preprocess_views_view_fields()
+*
+* @ingroup themeable
+*/
+#}
+{% set nodeid = fields.nid.content|raw|striptags|trim %}
+<div class="school_detail_page_block_1">
+	<div class="row mobile-view-slider">
+		<div class="detail-banner-wrapper">
+		<div class="lead-container">
+			<div class="detail-text-wrapper">
+					<div class="mobile-view">
+					<div class="school-logo">
+						<img class="img-fluid" src={{ fields.field_school_logo.content|striptags|trim }} alt={{logo_data.alt}} title={{logo_data.title}}/>
+					</div>
+					<h1>{{ fields.field_school_name.content }}</h1>
+					</div>
+					<div class="detail-banner-text">
+						<h1>{{ fields.field_school_name.content }}</h1>
+					  	<div class="loc-detail">
+							<strong>{{fields.field_city.content}}, {{fields.field_state.content}} - {{fields.field_pincode.content}}</strong>
+							<div class="drive-wrapper">
+							{% set total_distance = get_distanceData(nodeid) %}
+							{% if (total_distance > 0) %}
+								{#<span>{{ total_distance }} KM</span>#}
+							{% endif %}
+
+							<a href="javascript:void(0)">View On Map</a></div>
+						</div>
+						<div class="map-detail">
+						    <div>{{ school_map_block }}</div>
+						</div>
+						{#<div class="date-detail">
+							<strong>22 July 2022</strong>
+						    <span>Last Date of Admission</span>
+						</div>#}
+					</div>
+				</div>
+				</div>
+				{% set gallery_images = get_galleryData(nodeid) %}
+				<div class="detail-page-slider">
+				<div class="banner-btn">
+						{% if (schoolmask == 1) %}
+						<a href="javascript:void(0)" class="apl-done"><img src="/themes/custom/leadschool/images/applied.svg" /> Applied</a>
+						{% else %}
+							{% if (uid == 0) %}
+								<a href="javascript:void(0)" id="user-anonymous" class="apl nonlogin" data-id="{{ nodeid }}" data-info="{{ current_path_alias }}">Apply</a>
+							{% else %}
+								<a href="javascript:void(0)" class="apl" id="pop-form">Apply</a>
+							{% endif %}
+						{% endif %}
+						<a href="https://wa.me/message/7EK3EROL2ETTE1" class="brch" target="_blank">
+				<img src="/themes/custom/leadschool/images/whatsapp.svg"/> Chat with us</a>
+					</div>
+					<ul class="owl-carousel">
+					{% for facilities_element in gallery_images %}
+					<li><img class="img-fluid" src={{ facilities_element }} {#alt={{banner_data.alt}} title={{banner_data.title}}#}/></li>
+					{% endfor %}
+					</ul>
+				</div>
+
+				<div class="banner-bottom">
+					<div class="school-details">
+					<ul>
+						<li>
+							<span>School Level</span>
+							<strong>
+							{% set grade_names = get_gradeNames(nodeid) %}
+							{{ grade_names.0 }} - {{ grade_names.1 }}
+							</strong>
+						</li>
+						<li>
+							<span>Since</span>
+							<strong>{{ fields.field_established_in_year.content }}
+							</strong>
+						</li>
+						<li>
+							<span>Medium</span>
+							<strong>
+								{{ fields.field_medium_of_education.content }}
+							</strong>
+						</li>
+						<li>
+							<span>Board</span>
+						<strong>
+						{{ fields.field_board_affiliation.content }}
+						</strong>
+						</li>
+						<li>
+							<span>Type</span>
+							<strong>
+							{{ fields.field_marketing_template.content }}
+							</strong>
+						</li>
+						</ul>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="row desktop-view-slider">
+		<div class="detail-banner-wrapper">
+			<div class="detail-text-wrapper">
+					<div class="mobile-view">
+					<div class="school-logo">
+						<img class="img-fluid" src={{ fields.field_school_logo.content|striptags|trim }} alt={{logo_data.alt}} title={{logo_data.title}}/>
+					</div>
+					<h1>{{ fields.field_school_name.content }}</h1>
+					</div>
+					<div class="detail-banner-text">
+						<h1>{{ fields.field_school_name.content }}</h1>
+					  	<div class="loc-detail">
+							<strong>{{fields.field_city.content}}, {{fields.field_state.content}} - {{fields.field_pincode.content}}</strong>
+							<div class="drive-wrapper">
+							{% set total_distance = get_distanceData(nodeid) %}
+							{% if (total_distance > 0) %}
+								{#<span>{{ total_distance }} KM</span>#}
+							{% endif %}
+
+							<a href="javascript:void(0)">View On Map</a></div>
+						</div>
+						<div class="map-detail">
+						    <div>{{ school_map_block_mobile }}</div>
+						</div>
+						{#<div class="date-detail">
+							<strong>22 July 2022</strong>
+						    <span>Last Date of Admission</span>
+						</div>#}
+					</div>
+					<div class="banner-btn">
+					<a href="https://wa.me/message/7EK3EROL2ETTE1" class="brch" target="_blank">
+				<img src="/themes/custom/leadschool/images/whatsapp.svg"/> Chat with us</a>
+						{% if (schoolmask == 1) %}
+						<a href="javascript:void(0)" class="apl-done"><img src="/themes/custom/leadschool/images/applied.svg" /> Applied</a>
+						{% else %}
+							{% if (uid == 0) %}
+								<a href="javascript:void(0)" id="user-anonymous" class="apl nonlogin" data-id="{{ nodeid }}" data-info="{{ current_path_alias }}">Apply</a>
+							{% else %}
+								<a href="javascript:void(0)" class="apl" id="pop-form">Apply Now</a>
+							{% endif %}
+						{% endif %}
+
+					</div>
+				</div>
+				</div>
+				{% set gallery_images = get_galleryData(nodeid) %}
+				<div class="detail-page-slider">
+
+					<ul class="owl-carousel">
+					{% for facilities_element in gallery_images %}
+					<li><img class="img-fluid" src={{ facilities_element }} {#alt={{banner_data.alt}} title={{banner_data.title}}#}/></li>
+					{% endfor %}
+					</ul>
+				</div>
+
+
+		</div>
+
+	<div class="banner-bottom">
+					<div class="school-details">
+					<ul>
+						<li>
+							<span>School Level</span>
+							<strong>
+							{% set grade_names = get_gradeNames(nodeid) %}
+							{{ grade_names.0 }} - {{ grade_names.1 }}
+							</strong>
+						</li>
+						<li>
+							<span>Since</span>
+							<strong>{{ fields.field_established_in_year.content }}
+							</strong>
+						</li>
+						<li>
+							<span>Medium</span>
+							<strong>
+								{{ fields.field_medium_of_education.content }}
+							</strong>
+						</li>
+						<li>
+							<span>Board</span>
+						<strong>
+						{{ fields.field_board_affiliation.content }}
+						</strong>
+						</li>
+						<li>
+							<span>Type</span>
+							<strong>
+							{{ fields.field_marketing_template.content }}
+							</strong>
+						</li>
+						</ul>
+				</div>
+			</div>
+</div>
+<div class="form-popup">{{ parent_enquiry_block }}</div>
